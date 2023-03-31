@@ -1,0 +1,177 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api encurtadora de URL",
+        "description": "Essa Api tem como objetivo o encurtamento de Urls",
+        "termsOfService": "http://localhost/terms",
+        "contact": {
+            "email": "erica.testeapi@gmail.com"
+         },
+         "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url":"http://localhost:3000/",
+            "description": "Api de teste"
+        },
+        {
+            "url":"https://unyleya-node.onrender.com/",
+            "description": "Api de produção"
+        }
+     ], 
+    "basePath": "/",    
+     "paths": {
+        "/create" :{
+            
+            "post": {
+                "description": "Cria  Url Encurtada",
+                "summary":"Cria  Url Encurtada",
+                "tags": ["Url"],
+                "requestBody": {
+                    "content": {
+                      "application/json":{
+                        "schema":{
+                            "type": "object",
+                            "properties":{
+                                "code":{
+                                    "type": "string"
+                                },
+                                "url":{
+                                    "type": "string"
+                                },
+                                "hits":{
+                                    "type": "number"
+                                }
+                            },
+                            "exemple": {
+                                "code": "abcdeg",
+                                "url": "https://unyleya-node.com/",
+                                "hits": 3
+                            }
+                        }
+                      } 
+                    }
+                }
+               
+                },
+                "responses": {
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "400":{
+                        "description": "Url ja existe"
+                    },
+                    "200": {
+                        "description": "URL gerada"
+                    } 
+                    
+                }              
+
+            },
+        
+
+        "/:{date}": {
+            "get": {
+            "description": "Busca Url por Data",
+            "summary":"Busca Url por Data",
+            "tags": ["Url"],
+            "parameters": [
+                {
+                    "in": "query",
+                    "date": "createdAt",
+                    "type": "string",
+                    "require": true
+                }
+            ],
+            "responses":{
+                "200": {
+                    "description": "URL gerada"
+                } 
+
+                }
+             }
+           },
+           "/:{code}": {
+            "get": {
+            "description": "Busca Url por código",
+            "summary":"Busca Url por código",
+            "tags": ["Url"],
+            "parameters": [
+                {
+                    "in": "query",
+                    "code": "code",
+                    "type": "string",
+                    "require": true
+                }
+            ],
+            "responses":{
+                "200": {
+                    "description": "URL gerada"
+                } 
+
+                }
+             }
+           },
+           "/":{
+           "get": {
+            "description": "Busca Url por código",
+            "summary":"Busca Url por código",
+            "tags": ["Url"],
+            "parameters": [
+                {
+                    "in": "query",
+                    "date": "createdAt",
+                    "type": "string",
+                    "require": true
+                }
+            ],
+            "responses":{
+                "200": {
+                    "description": "ok"
+                } 
+                }
+            }
+
+           },
+           
+       
+        "/":{
+            "get":{
+                "summary": "Busca todas as Urls",
+                "description": "Essa rota é responsavel por carregar todas as Urls cadastradas no banco de dados",
+                "tags": ["Url"]
+            }
+        },
+        "/{id}":{
+            "get":{
+                "summary": "Busca Url por Id",
+                "description": "Essa rota é responsavel por carregar uma Url pelo Id",
+                "tags": ["Url"],
+                "parameters": [
+                    {
+                        "id": "id",
+                        "in": "path",
+                        "description": "id do registro para busca",
+                        "require": true
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content":{
+                            "application/json": {
+                                "schema":{
+                                    "type":"object"
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        
+     }
+
+}
